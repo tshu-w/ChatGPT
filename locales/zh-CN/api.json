@@ -1,7 +1,7 @@
 {
   "securityMessage": "我们高度优先考虑您的 API 密钥的安全，并非常小心地处理它。您的密钥将专门存储在您的浏览器中，并且永远不会与任何第三方实体共享。它仅用于访问 OpenAI API 的预期用途，而不是用于任何其他未经授权的用途。",
   "apiEndpoint": {
-    "inputLabel": "API 端点",
+    "inputLabel": "API 端点"
   },
   "apiKey": {
     "option": "输入您自己的 API 密钥",
