@@ -66,7 +66,7 @@ const ApiMenu = ({
               type='text'
               className='text-gray-800 dark:text-white p-3 text-sm border-none bg-gray-200 dark:bg-gray-600 rounded-md m-0 w-full mr-0 h-8 focus:outline-none'
               value={_apiEndpoint}
-              placeholder='https://chatgpt-api.shn.hk/v1/'
+              placeholder='https://api.openai.com/v1/chat/completions'
               onChange={(e) => {
                 _setApiEndpoint(e.target.value);
               }}
@@ -79,23 +79,7 @@ const ApiMenu = ({
           )}
         </div>
 
-        <label className='flex items-center mb-2 gap-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
-          <input
-            type='radio'
-            checked={_apiFree === true}
-            className='w-4 h-4'
-            onChange={() => _setApiFree(true)}
-          />
-          {t('apiEndpoint.option', { ns: 'api' })}
-        </label>
-
         <label className='flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
-          <input
-            type='radio'
-            checked={_apiFree === false}
-            className='w-4 h-4'
-            onChange={() => _setApiFree(false)}
-          />
           {t('apiKey.option', { ns: 'api' })}
         </label>
 
@@ -131,20 +115,6 @@ const ApiMenu = ({
 
         <div className='min-w-fit text-gray-900 dark:text-gray-300 text-sm mt-4'>
           {t('securityMessage', { ns: 'api' })}
-        </div>
-
-        <div className='mt-4 p-1 border border-gray-500 rounded-md text-sm font-medium text-gray-900 dark:text-gray-300 text-center'>
-          <Trans
-            i18nKey='apiEndpoint.description'
-            ns='api'
-            components={[
-              <a
-                href='https://github.com/ayaka14732/ChatGPTAPIFree'
-                className='link'
-                target='_blank'
-              />,
-            ]}
-          />
         </div>
       </div>
     </PopupModal>

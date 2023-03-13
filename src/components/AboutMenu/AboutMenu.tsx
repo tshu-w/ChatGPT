@@ -35,7 +35,7 @@ const AboutMenu = () => {
                   ns='about'
                   components={[
                     <a
-                      href='https://github.com/ztjhz/ChatGPTFreeApp'
+                      href='https://github.com/ztjhz/FreeChatGPT'
                       target='_blank'
                       className='link'
                     />,

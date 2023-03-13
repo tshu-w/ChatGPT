@@ -11,7 +11,7 @@ export interface AuthSlice {
 }
 
 export const createAuthSlice: StoreSlice<AuthSlice> = (set, get) => ({
-  apiFree: true,
+  apiFree: false,
   apiEndpoint: defaultAPIEndpoint,
   setApiKey: (apiKey: string) => {
     set((prev: AuthSlice) => ({

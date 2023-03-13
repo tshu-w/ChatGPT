@@ -1,7 +1,7 @@
-export const defaultAPIEndpoint = 'https://chatgpt-api.shn.hk/v1/';
+export const defaultAPIEndpoint = 'https://openai.ponte.top/v1/chat/completions';
 export const officialAPIEndpoint = 'https://api.openai.com/v1/chat/completions';
 
 export const availableEndpoints = [
-  'https://chatgpt-api.shn.hk/v1/',
+  defaultAPIEndpoint,
   officialAPIEndpoint,
 ];
