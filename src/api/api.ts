@@ -50,11 +50,11 @@ export const getChatCompletionStream = async (
     if (text.includes('model_not_found')) {
       throw new Error(
         text +
-          '\nMessage from freechatgpt.chat:\nPlease ensure that you have access to the GPT-4 API!'
+          '\nPlease ensure that you have access to the GPT-4 API!'
       );
     } else {
       throw new Error(
-        'Message from freechatgpt.chat:\nInvalid API endpoint! We recommend you to check your free API endpoint.'
+        'Invalid API endpoint! We recommend you to check your free API endpoint.'
       );
     }
   }
@@ -64,7 +64,7 @@ export const getChatCompletionStream = async (
     let error = text;
     if (text.includes('insufficient_quota')) {
       error +=
-        '\nMessage from freechatgpt.chat:\nToo many request! We recommend changing your API endpoint or API key';
+        '\nToo many request! We recommend changing your API endpoint or API key';
     }
     throw new Error(error);
   }
