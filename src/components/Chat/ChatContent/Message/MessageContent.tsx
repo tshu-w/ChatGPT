@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { CodeProps, ReactMarkdownProps } from 'react-markdown/lib/ast-to-react';
 import rehypeKatex from 'rehype-katex';
-import rehypeSanitize from 'rehype-sanitize';
 import rehypeHighlight from 'rehype-highlight';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
@@ -26,6 +25,7 @@ import useSubmit from '@hooks/useSubmit';
 import { ChatInterface } from '@type/chat';
 
 import PopupModal from '@components/PopupModal';
+import CommandPrompt from './CommandPrompt';
 import CodeBlock from './CodeBlock';
 import { codeLanguageSubset } from '@constants/chat';
 
@@ -135,7 +135,6 @@ const ContentView = React.memo(
               [remarkMath, { singleDollarTextMath: false }],
             ]}
             rehypePlugins={[
-              rehypeSanitize,
               [rehypeKatex, { output: 'mathml' }],
               [
                 rehypeHighlight,
@@ -310,13 +309,6 @@ const EditView = ({
     if (textareaRef.current) textareaRef.current.style.height = 'auto';
   };
 
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${e.target.scrollHeight}px`;
-    }
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if ((e.ctrlKey || e.shiftKey) && e.key === 'Enter') {
       e.preventDefault();
@@ -373,6 +365,13 @@ const EditView = ({
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
+  }, [_content]);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
   }, []);
 
   return (
@@ -391,7 +390,6 @@ const EditView = ({
             _setContent(e.target.value);
           }}
           value={_content}
-          onInput={handleInput}
           onKeyDown={handleKeyDown}
           rows={1}
         ></textarea>
@@ -402,6 +400,7 @@ const EditView = ({
         handleSave={handleSave}
         setIsModalOpen={setIsModalOpen}
         setIsEdit={setIsEdit}
+        _setContent={_setContent}
       />
       {isModalOpen && (
         <PopupModal
@@ -422,62 +421,67 @@ const EditViewButtons = React.memo(
     handleSave,
     setIsModalOpen,
     setIsEdit,
+    _setContent,
   }: {
     sticky?: boolean;
     handleSaveAndSubmit: () => void;
     handleSave: () => void;
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    _setContent: React.Dispatch<React.SetStateAction<string>>;
   }) => {
     const { t } = useTranslation();
 
     return (
-      <div className='text-center mt-2 flex justify-center'>
-        {sticky && (
+      <div className='flex'>
+        <div className='flex-1 text-center mt-2 flex justify-center'>
+          {sticky && (
+            <button
+              className='btn relative mr-2 btn-primary'
+              onClick={handleSaveAndSubmit}
+            >
+              <div className='flex items-center justify-center gap-2'>
+                {t('saveAndSubmit')}
+              </div>
+            </button>
+          )}
+
           <button
-            className='btn relative mr-2 btn-primary'
-            onClick={handleSaveAndSubmit}
+            className={`btn relative mr-2 ${
+              sticky ? 'btn-neutral' : 'btn-primary'
+            }`}
+            onClick={handleSave}
           >
             <div className='flex items-center justify-center gap-2'>
-              {t('saveAndSubmit')}
+              {t('save')}
             </div>
           </button>
-        )}
 
-        <button
-          className={`btn relative mr-2 ${
-            sticky ? 'btn-neutral' : 'btn-primary'
-          }`}
-          onClick={handleSave}
-        >
-          <div className='flex items-center justify-center gap-2'>
-            {t('save')}
-          </div>
-        </button>
+          {sticky || (
+            <button
+              className='btn relative mr-2 btn-neutral'
+              onClick={() => {
+                setIsModalOpen(true);
+              }}
+            >
+              <div className='flex items-center justify-center gap-2'>
+                {t('saveAndSubmit')}
+              </div>
+            </button>
+          )}
 
-        {sticky || (
-          <button
-            className='btn relative mr-2 btn-neutral'
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
-          >
-            <div className='flex items-center justify-center gap-2'>
-              {t('saveAndSubmit')}
-            </div>
-          </button>
-        )}
-
-        {sticky || (
-          <button
-            className='btn relative btn-neutral'
-            onClick={() => setIsEdit(false)}
-          >
-            <div className='flex items-center justify-center gap-2'>
-              {t('cancel')}
-            </div>
-          </button>
-        )}
+          {sticky || (
+            <button
+              className='btn relative btn-neutral'
+              onClick={() => setIsEdit(false)}
+            >
+              <div className='flex items-center justify-center gap-2'>
+                {t('cancel')}
+              </div>
+            </button>
+          )}
+        </div>
+        <CommandPrompt _setContent={_setContent} />
       </div>
     );
   }

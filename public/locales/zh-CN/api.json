@@ -8,5 +8,5 @@
     "howTo": "在<0>这里</0>获取您的个人 API 密钥",
     "inputLabel": "API 密钥"
   },
-  "customEndpoint": "使用自定义端点"
+  "customEndpoint": "使用自定义 API 端点"
 }
