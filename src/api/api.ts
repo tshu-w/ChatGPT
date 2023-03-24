@@ -1,3 +1,4 @@
+import { ShareGPTSubmitBodyInterface } from '@type/api';
 import { ConfigInterface, MessageInterface } from '@type/chat';
 
 export const getChatCompletion = async (
@@ -17,6 +18,7 @@ export const getChatCompletion = async (
     body: JSON.stringify({
       messages,
       ...config,
+      max_tokens: null,
     }),
   });
   if (!response.ok) throw new Error(await response.text());
@@ -42,6 +44,7 @@ export const getChatCompletionStream = async (
     body: JSON.stringify({
       messages,
       ...config,
+      max_tokens: null,
       stream: true,
     }),
   });
@@ -65,10 +68,27 @@ export const getChatCompletionStream = async (
     if (text.includes('insufficient_quota')) {
       error +=
         '\nToo many request! We recommend changing your API endpoint or API key';
+    } else {
+      error += '\nRate limited! Please try again later.';
     }
     throw new Error(error);
   }
 
   const stream = response.body;
   return stream;
+};
+
+export const submitShareGPT = async (body: ShareGPTSubmitBodyInterface) => {
+  const request = await fetch('https://sharegpt.com/api/conversations', {
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  });
+
+  const response = await request.json();
+  const { id } = response;
+  const url = `https://shareg.pt/${id}`;
+  window.open(url, '_blank');
 };
