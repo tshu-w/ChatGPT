@@ -47,7 +47,7 @@ export const getChatCompletionStream = async (
     let error = text;
     if (text.includes('insufficient_quota')) {
       error +=
-        '\nToo many request! We recommend changing your API endpoint or API key';
+        '\nWe recommend changing your API endpoint or API key';
     }
     throw new Error(error);
   }
