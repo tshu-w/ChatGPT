@@ -81,9 +81,32 @@ To get started, simply visit our website at <https://bettergpt.chat/>. There are
 2. Utilise the api endpoint proxy provided by [ayaka14732/ChatGPTAPIFree](https://github.com/ayaka14732/ChatGPTAPIFree) (if you are in a region with no access to ChatGPT)
 3. Host your own API endpoint by following the instructions provided here: <https://github.com/ayaka14732/ChatGPTAPIFree>. Subsequently, enter the API endpoint into the API menu.
 
+## Desktop App
+
+Download the desktop app [here](https://github.com/ztjhz/BetterChatGPT/releases)
+
+| OS      | Download  |
+| ------- | --------- |
+| Windows | .exe      |
+| MacOS   | .dmg      |
+| Linux   | .AppImage |
+
+### Features:
+
+- Unlimited local storage
+- Runs locally (access Better ChatGPT even if the website is not accessible)
+
 # 🛫 Host your own Instance
 
 If you'd like to run your own instance of Better ChatGPT, you can easily do so by following these steps:
+
+## Vercel
+
+One click deploy with Vercel
+
+[![Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fztjhz%2FBetterChatGPT)
+
+## GitHub Pages
 
 ### Steps
 
