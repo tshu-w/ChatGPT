@@ -11,7 +11,9 @@ const dateString =
   ('0' + date.getDate()).slice(-2);
 
 // default system message obtained using the following method: https://twitter.com/DeminDimin/status/1619935545144279040
-export const _defaultSystemMessage = `You are ChatGPT, a large language model trained by OpenAI.
+export const _defaultSystemMessage =
+  import.meta.env.VITE_DEFAULT_SYSTEM_MESSAGE ??
+  `You are ChatGPT, a large language model trained by OpenAI.
 Carefully heed the user's instructions. 
 Respond using Markdown.`;
 
@@ -55,7 +57,7 @@ export const _defaultChatConfig: ConfigInterface = {
   frequency_penalty: 0,
 };
 
-export const generateDefaultChat = (title?: string): ChatInterface => ({
+export const generateDefaultChat = (title?: string, folder?: string): ChatInterface => ({
   id: uuidv4(),
   title: title ? title : 'New Chat',
   messages:
@@ -64,6 +66,7 @@ export const generateDefaultChat = (title?: string): ChatInterface => ({
       : [],
   config: { ...useStore.getState().defaultChatConfig },
   titleSet: false,
+  folder
 });
 
 export const codeLanguageSubset = [
