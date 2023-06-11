@@ -16,11 +16,10 @@ module.exports = {
     fontFamily: {
       sans: [
         'Söhne',
+        'Roboto',
         'ui-sans-serif',
         'system-ui',
         '-apple-system',
-        'Segoe UI',
-        'Roboto',
         'Ubuntu',
         'Cantarell',
         'Noto Sans',
@@ -32,7 +31,14 @@ module.exports = {
         'Segoe UI Symbol',
         'Noto Color Emoji',
       ],
-      mono: ['Söhne Mono', 'Monaco', 'Andale Mono', 'Ubuntu Mono', 'monospace'],
+      mono: [
+        'Söhne Mono',
+        'Monaco',
+        'Andale Mono',
+        'Ubuntu Mono',
+        'Consolas',
+        'monospace',
+      ],
     },
     extend: {
       typography: {
